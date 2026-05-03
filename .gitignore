@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+
+# Local example fixtures
+example/*.flac
+example/*.jpg
+example/*.jpeg
+example/*.png

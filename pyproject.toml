@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "m4baker"
+version = "0.1.0"
+description = "Build chapterized M4B audiobooks from ordered audio files"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "cyclopts>=3.24.0",
+    "ffmpeg-progress-yield>=1.0.4",
+    "mediafile>=0.13.0",
+    "tqdm>=4.67.1",
+]
+
+[project.scripts]
+m4baker = "m4baker.cli:main"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.0",
+    "pytest>=8.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.14.0",
+    "types-tqdm>=4.67.0.20250809",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/m4baker"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=m4baker --cov-report=term-missing --cov-fail-under=80"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = ["src"]
+packages = ["m4baker"]
+
+[[tool.mypy.overrides]]
+module = ["mediafile", "mediafile.*"]
+ignore_missing_imports = true
